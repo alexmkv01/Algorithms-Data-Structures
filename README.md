@@ -1,4 +1,4 @@
-# Algorithms & Data Structures Practice Course on LeetCode
+# Algorithms & Data Structures Practice 
 
 ## Table of Contents
 
