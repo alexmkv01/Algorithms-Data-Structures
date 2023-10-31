@@ -21,5 +21,4 @@ class Stack{
             stack.pop_back();
             return val;
         }
-
 };
