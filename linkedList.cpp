@@ -1,4 +1,7 @@
 #include <vector>
+#include <iostream>
+
+
 using namespace std;
 
 class ListNode {
@@ -21,8 +24,8 @@ class LinkedList {
 
         // constructor
         LinkedList() {
-            head = new ListNode(-1);
-            tail = head;
+            head = new ListNode(-1);  // Creates a dummy head node with value -1
+            tail = head;              // Initially, tail is the same as head since list is empty
         }
 
         // methods
@@ -40,10 +43,11 @@ class LinkedList {
         }
 
         void insertHead(int val) {
-            ListNode* newNode = new ListNode(val);
-            newNode->next = head->next;
-            head->next = newNode;
-            if (newNode->next == nullptr) {  // If list was empty before insertion
+            ListNode *newNode = new ListNode(val);
+            newNode->next = head->next;  // The new node should point to the current first real node
+            head->next = newNode;        // The dummy head's next pointer is updated to the new node
+
+            if (newNode->next == nullptr) {  // If the list was empty before insertion, now newNode is also the last node
                 tail = newNode;
             }
         }
@@ -86,3 +90,27 @@ class LinkedList {
             return myArr;
         }
     };
+
+int main(){
+
+    LinkedList *myList = new LinkedList();
+    myList->insertTail(5);
+    myList->insertTail(-3);
+    myList->insertTail(7);
+    myList->insertTail(1);
+    myList->insertTail(4);
+    myList->remove(3);
+    myList->remove(1);
+    myList->insertTail(10);
+    myList->insertHead(0);
+    myList->insertHead(2);
+
+    vector<int> myArr =  myList->getValues();
+
+    for (int i=0; i<myArr.size(); i++){
+        std::cout << myArr[i] << " ";
+    }
+
+    std::cout << "\n";
+    
+}
