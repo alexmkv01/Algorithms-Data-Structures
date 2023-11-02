@@ -65,3 +65,7 @@ public:
         std::cout << std::endl;
     }
 };   
+
+int main(){
+    return 0;
+}
