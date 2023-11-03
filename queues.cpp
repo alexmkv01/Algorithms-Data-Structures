@@ -1,83 +1,103 @@
+#include <iostream>
+
+using namespace std;
+
 // Doubly Linked List Node
 class Node {
 public:
-    int value;
-    Node* next;
-    Node* prev;
+    // attributes
+    int val;
+    Node *next = nullptr;
+    Node *prev = nullptr;
 
-    Node(int value) : value(value), next(nullptr), prev(nullptr) {}
+    // constructor
+    Node(int val){
+        this->val = val;
+    }
 };
 
 // Linked List implementation of Double Ended Queue
 class Deque {
 private:
-    Node* dummyHead;
-    Node* dummyTail;
+    Node *head;
+    Node *tail;
 
 public:
     Deque() {
-        // Initialize dummy head and tail nodes
-        dummyHead = new Node(0);
-        dummyTail = new Node(0);
-
-        // Connect dummy head and tail nodes
-        dummyHead->next = dummyTail;
-        dummyTail->prev = dummyHead;
+        this->head = new Node(-1);
+        this->tail = new Node(-1);
+        head->next = tail;
+        tail->prev = head;
     }
 
     bool isEmpty() {
-        return dummyHead->next == dummyTail;
+        return head->next == tail;
     }
 
     void append(int value) {
-        Node* newNode = new Node(value);
-        Node* prevNode = dummyTail->prev;
-
-        newNode->next = dummyTail;
-        newNode->prev = prevNode;
-
-        prevNode->next = newNode;
-        dummyTail->prev = newNode;
+        Node *newNode = new Node(value);
+        tail->prev->next = newNode;
+        newNode->prev = tail->prev;
+        newNode->next = tail;
+        tail->prev = newNode;
     }
 
     void appendleft(int value) {
-        Node* newNode = new Node(value);
-        Node* nextNode = dummyHead->next;
-
-        newNode->next = nextNode;
-        newNode->prev = dummyHead;
-
-        nextNode->prev = newNode;
-        dummyHead->next = newNode;
+        Node *newNode = new Node(value);
+        head->next->prev = newNode;
+        newNode->next = head->next;
+        newNode->prev = head;
+        head->next = newNode;
     }
 
     int pop() {
-        if (isEmpty()) {
+        if (isEmpty()){
             return -1;
         }
-        Node* targetNode = dummyTail->prev;
-        Node* prevNode = targetNode->prev;
-        int value = targetNode->value;
+        Node *targetNode = tail->prev;
+        Node *prevNode = targetNode->prev;
 
-        prevNode->next = dummyTail;
-        dummyTail->prev = prevNode;
+        int val = targetNode->val;
+        prevNode->next = tail;
+        tail->prev = prevNode;
 
-        delete targetNode; // Free the memory
-        return value;
+        delete targetNode;
+        return val;
     }
 
     int popleft() {
-        if (isEmpty()) {
+        if (isEmpty()){
             return -1;
         }
-        Node* targetNode = dummyHead->next;
-        Node* nextNode = targetNode->next;
-        int value = targetNode->value;
+        Node *targetNode = head->next;
+        Node *nextNode = targetNode->next;
 
-        dummyHead->next = nextNode;
-        nextNode->prev = dummyHead;
+        int val = targetNode->val;
+        head->next = nextNode;
+        nextNode->prev = head;
+        delete targetNode;
+        return val;
+    }
 
-        delete targetNode; // Free the memory
-        return value;
+    void print(){
+        Node *cur = head->next;
+        while (cur != tail){
+            std::cout << cur->val << " -> ";
+            cur = cur->next;
+        }
+        std::cout << "\n";
     }
 };
+
+int main(){
+
+    Deque *myQueue = new Deque();
+    myQueue->append(3);
+    myQueue->append(1);
+    myQueue->appendleft(-2);
+    myQueue->pop();
+    myQueue->popleft();
+
+    myQueue->print();
+
+}
