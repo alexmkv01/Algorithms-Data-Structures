@@ -18,7 +18,7 @@ private:
             if (arr[i] <= pivot){
                 // swap
                 swap(arr[i], arr[insertPtr]);
-                ++insertPtr;
+                insertPtr++;
             }
         }
         swap(arr[insertPtr], arr[e]);
