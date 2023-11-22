@@ -14,15 +14,7 @@ public:
         heap.push_back(0);
     }
 
-    void push(int val){
-        heap.push_back(val);
-        int i = heap.size()-1;
-
-        while (heap[i] < heap[i/2]) {
-            swap(heap[i], heap[i/2]);
-            i/=2;
-        }
-    }
+    
 
     int pop() {
         if (heap.size() == 1) {
@@ -40,13 +32,16 @@ public:
         heap[1] = heap[heap.size() - 1];
         heap.pop_back();
         int i = 1;
+        
         // Percolate down
         while (2*i < heap.size()) {
             if (2*i+1 < heap.size() && heap[2*i+1] < heap[2*i] && heap[i] > heap[2*i+1]) {
+
                 // Swap right child
                 swap(heap[i], heap[2*i+1]);
                 i = 2*i+1;
             } else if (heap[i] > heap[2*i]) {
+
                 // Swap left child
                 swap(heap[i], heap[2*i]);
                 i = 2*i;
