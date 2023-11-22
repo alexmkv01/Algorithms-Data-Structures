@@ -8,9 +8,21 @@ class Heap {
 // parent of i = heap[i // 2]
 
 public:
-    vector<int> heap_;
+    vector<int> heap;
 
     Heap() {
-        heap_.push_back(0);
+        heap.push_back(0);
+    }
+
+    void push(int val){
+        heap.push_back(val);
+        int i = heap.size()-1;
+
+        while (heap[i] < heap[i/2]){
+            swap(heap[i], heap[i/2]);
+            i/=2;
+        }
+
+
     }
 };
