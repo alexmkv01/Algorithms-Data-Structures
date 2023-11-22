@@ -5,10 +5,6 @@ using namespace std;
 class Solution {
 public:
     vector<vector<int>> subsets(vector<int>& nums) {
-        // Clear previous contents (if any)
-        results.clear();
-        subset.clear();
-
         // Start the DFS
         dfs(nums, 0);
         return results;
