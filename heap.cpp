@@ -2,6 +2,7 @@
 
 using namespace std;
 
+// Min Heap
 class Heap {
 // leftChild of i = heap[2 * i]
 // rightChild of i = heap[(2 * i) + 1] 
@@ -14,7 +15,15 @@ public:
         heap.push_back(0);
     }
 
-    
+    void push(int val){
+        heap.push_back(val);
+        int i = heap.size()-1;
+
+        while (heap[i] < heap[i/2]) {
+            swap(heap[i], heap[i/2]);
+            i/=2;
+        }
+    }
 
     int pop() {
         if (heap.size() == 1) {
@@ -41,7 +50,7 @@ public:
                 swap(heap[i], heap[2*i+1]);
                 i = 2*i+1;
             } else if (heap[i] > heap[2*i]) {
-
+                
                 // Swap left child
                 swap(heap[i], heap[2*i]);
                 i = 2*i;
@@ -58,5 +67,32 @@ public:
         }
         // Normally we would throw an exception if heap is empty.
         return -1;
+    }
+
+    void heapify(vector<int>& arr) {
+        // 0-th position is moved to the end
+        arr.push_back(arr[0]);
+
+        heap = arr;
+        int cur = (heap.size() - 1) / 2;
+
+        while (cur > 0) {
+            int i = cur;
+            // Percolate down
+            while (2*i < heap.size()) {
+                if (2*i+1 < heap.size() && heap[2*i+1] < heap[2*i] && heap[i] > heap[2*i+1]) {
+                    // Swap right child
+                    swap(heap[i], heap[2*i+1]);
+                    i = 2*i+1;
+                } else if (heap[i] > heap[2*i]) {
+                    // Swap left child
+                    swap(heap[i], heap[2*i]);
+                    i = 2*i;
+                } else {
+                    break;
+                }
+            }
+            cur--;
+        }
     }
 };
