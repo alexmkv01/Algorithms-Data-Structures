@@ -39,7 +39,7 @@ void merge(vector<int>& arr, int s, int m, int e){
 
 vector<int> mergeSort(vector<int>& arr, int s, int e) {
 
-    // base case: length = 1
+    // base case: length <= 1 (arr with 1 element is sorted by default)
     if (e-s+1 <= 1){
         return arr;
     }
